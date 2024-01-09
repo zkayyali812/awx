@@ -36,3 +36,11 @@ podman_user: "{{ receptor_user }}"
 podman_group: "{{ receptor_group }}"
 {% endverbatim %}
 receptor_install_method: "{{ instance.receptor_installation_method }}"
+
+podman_internal_cidr: 10.0.2.0/24
+receptor_image_name: awx-ee
+receptor_image_registry: quay.io/ansible
+# To pull the receptor image from a private registry, 
+# define both `receptor_image_registry_username` and `receptor_image_registry_token`
+# receptor_image_registry_username: ''
+# receptor_image_registry_token: ''
