@@ -5,7 +5,7 @@ import PaginatedTable, {
   getSearchableKeys,
   HeaderCell,
   HeaderRow,
-  ToolbarAddButton,
+  // ToolbarAddButton,
 } from 'components/PaginatedTable';
 import AddEndpointModal from 'components/AddEndpointModal';
 import useToast from 'hooks/useToast';
@@ -51,7 +51,9 @@ function InstanceEndPointList({ setBreadcrumb }) {
 
       for(let q = 0; q < results.length; q++) {
         const receptor = results[q];
+        if(receptor.managed === true) continue;
         if(id.toString() === receptor.instance.toString()) {
+          receptor.name = detail.hostname;
           endpoint_list.push(receptor);
         }
       }
@@ -90,13 +92,13 @@ function InstanceEndPointList({ setBreadcrumb }) {
   const { selected, isAllSelected, handleSelect, clearSelected, selectAll } =
     useSelected(endpoints);
 
-  const handleEndpointDelete = async () => {
-    // console.log(selected)
-    // InstancesAPI.updateReceptorAddresses(instance.id, values);
-  }
+  // const handleEndpointDelete = async () => {
+  //   // console.log(selected)
+  //   // InstancesAPI.updateReceptorAddresses(instance.id, values);
+  // }
 
-  const isHopNode = instance.node_type === 'hop';
-  const isExecutionNode = instance.node_type === 'execution';
+  // const isHopNode = instance.node_type === 'hop';
+  // const isExecutionNode = instance.node_type === 'execution';
 
   return (
     <CardBody>
@@ -128,6 +130,7 @@ function InstanceEndPointList({ setBreadcrumb }) {
         ]}
         headerRow={
           <HeaderRow qsConfig={QS_CONFIG} isExpandable>
+            <HeaderCell sortKey="name">{t`Name`}</HeaderCell>
             <HeaderCell sortKey="address">{t`Address`}</HeaderCell>
             <HeaderCell sortKey="port">{t`Port`}</HeaderCell>
           </HeaderRow>
@@ -141,22 +144,22 @@ function InstanceEndPointList({ setBreadcrumb }) {
             onExpandAll={expandAll}
             qsConfig={QS_CONFIG}
             additionalControls={[
-              (isExecutionNode || isHopNode) && (
-                <ToolbarAddButton
-                  ouiaId="add-endpoint-button"
-                  key="add-endpoint"
-                  defaultLabel={t`Add`}
-                  onClick={() => setisAddEndpointModalOpen(true)}
-                />
-              ),
-              (isExecutionNode || isHopNode) && (
-                <ToolbarAddButton
-                  ouiaId="delete-endpoint-button"
-                  key="delete-endpoint"
-                  defaultLabel={t`Delete`}
-                  onClick={() => handleEndpointDelete()}
-                />
-              ),
+              // (isExecutionNode || isHopNode) && (
+              //   <ToolbarAddButton
+              //     ouiaId="add-endpoint-button"
+              //     key="add-endpoint"
+              //     defaultLabel={t`Add`}
+              //     onClick={() => setisAddEndpointModalOpen(true)}
+              //   />
+              // ),
+              // (isExecutionNode || isHopNode) && (
+              //   <ToolbarAddButton
+              //     ouiaId="delete-endpoint-button"
+              //     key="delete-endpoint"
+              //     defaultLabel={t`Delete`}
+              //     onClick={() => handleEndpointDelete()}
+              //   />
+              // ),
             ]}
           />
         )}

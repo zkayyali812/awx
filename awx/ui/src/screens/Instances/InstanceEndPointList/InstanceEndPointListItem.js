@@ -35,6 +35,12 @@ function InstanceEndPointListItem({
         dataLabel={t`Selected`}
       />
 
+      <Td id={labelId} dataLabel={t`Name`}>
+        <Link to={`/instances/${peerInstance.instance}/details`}>
+          <b>{peerInstance.name}</b>
+        </Link>
+      </Td>
+
       <Td id={labelId} dataLabel={t`Address`}>
         <Link to={`/instances/${peerInstance.instance}/details`}>
           <b>{peerInstance.address}</b>

@@ -62,6 +62,7 @@ function InstancePeerList({ setBreadcrumb }) {
 
       for(let q = 0; q < results.length; q++) {
         const receptor = results[q];
+        if(receptor.managed === true) continue;
         const host = instances.data.results.filter((obj) => obj.id === receptor.instance)[0];
         const copy = receptor;
         copy.hostname = host.hostname;
@@ -250,13 +251,12 @@ function InstancePeerList({ setBreadcrumb }) {
         ]}
         headerRow={
           <HeaderRow qsConfig={QS_CONFIG} isExpandable>
-            <HeaderCell sortKey="address">{t`Address`}</HeaderCell>
-            <HeaderCell sortKey="port">{t`Port`}</HeaderCell>
             <HeaderCell
               tooltip={t`Cannot run health check on hop nodes.`}
               sortKey="hostname"
             >{t`Name`}</HeaderCell>
-            <HeaderCell sortKey="errors">{t`Status`}</HeaderCell>
+            <HeaderCell sortKey="address">{t`Address`}</HeaderCell>
+            <HeaderCell sortKey="port">{t`Port`}</HeaderCell>
             <HeaderCell sortKey="node_type">{t`Node Type`}</HeaderCell>
           </HeaderRow>
         }
@@ -312,9 +312,9 @@ function InstancePeerList({ setBreadcrumb }) {
           optionsRequest={readInstancesOptions}
           displayKey="hostname"
           columns={[
+            { key: 'hostname', name: t`Name` },
             { key: 'address', name: t`Address` },
             { key: 'port', name: t`Port` },
-            { key: 'hostname', name: t`Name` },
             { key: 'node_type', name: t`Node Type` },
           ]}
         />
